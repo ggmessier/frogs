@@ -3,7 +3,7 @@
 Digikey part numbers.
 
 | Item       | Number    |  Price | Quantity | 
-|:===========|:=========:|:======:|:========:|
+|:-----------|:---------:|:------:|:--------:|
 | U1 - 16F1778 PIC     | PIC16F1778-I/SO-ND | $3.35 | 1 |
 | U2 - AT25SF321 FLASH | 1265-1279-1-ND | $1.37 | 1 |
 | U3 - ADP7104 Regulator | ADP7104ARDZ-3.3-R7CT-ND | $7.34 | 1 |
