@@ -8,14 +8,17 @@ Digikey part numbers.
 | U2 - AT25SF321 FLASH | 1265-1279-1-ND | $1.37 | 1 |
 | U3 - ADP7104 Regulator | ADP7104ARDZ-3.3-R7CT-ND | $7.34 | 1 |
 | SW Reset Switch | CKN9112CT-ND | $0.24 | 1 |
-| R1 100~Ohm Resistor | P100KDACT-ND | $0.53 | 1 |
+| R1 160~Ohm Resistor | P160DACT-ND | $0.53 | 1 |
 | R2 100~kOhm Resistor | P100KDACT-ND | $0.53 | 1 |
 | C1,C2 1~uF Capacitor | 311-1365-1-ND | $0.25 | 2 |
 | JP2 - JP5 Female Header | S7041-ND | $0.93 | 4 |
-| JP1 Right Angle Header | 732-2674-ND | $1.65 | 1 | 
+| JP1 Right Angle Header | 732-2674-ND | $1.65 | 1 |
+| Green LED | 160-1423-1-ND | $0.22 | 1 | 
 
 
-
+# Revision History
+## Rev 1.1
+* Fixed pins 3 and 6 on regulator not connected to ground.
 
 
 

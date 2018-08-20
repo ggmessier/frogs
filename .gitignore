@@ -1,2 +1,8 @@
 *.?#?
 *~
+/sw/serial/frog-serial.X/nbproject/private/
+/sw/libfrog-serial.X/nbproject/private/
+/sw/frog-player.X/nbproject/private/
+/sw/frog-player.X/build/default/
+/sw/libfrog-serial.X/dist/default/
+/sw/frog-player.X/dist/default/
