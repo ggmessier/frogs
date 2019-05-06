@@ -50,9 +50,13 @@
 #include "pin_manager.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include "spi.h"
+#include "opa1.h"
+#include "dac1.h"
+#include "tmr2.h"
 #include "eusart.h"
 
-#define _XTAL_FREQ  1000000
+#define _XTAL_FREQ  16000000
 
 
 /**

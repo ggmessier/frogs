@@ -1,34 +1,51 @@
 #include "mcc_generated_files/eusart.h"
 #include "pic-kermit.h"
+#include "uart-menu.h"
 
 
 /*
  * Global variables
  */
 
-// No file size so risk of overwriting or running out of memory.
+// The main file will set these globals to point to a data storage array.
 uint8_t *fileWritePtr;
-uint16_t bufferCapacity;
-uint8_t bufferCheckOverride=0;
+uint8_t remBufferCapacity;
+
+uint16_t dbNumDataBytes = 0;
 
 ReqInitData remoteInitData;  // Mandatory datafields for remote terminal
 ReqInitData localInitData = {
   .maxl = 94 + 32,
-  .time = 5 + 32,
+  .time = 60 + 32,
   .npad = 0 + 32,
   .padc = 0 ^ 64,
   .eol = '\r' + 32,
   .qctl = '#' + 32
 };
 
-void PicKermitRxFile()
+
+void DebugKermit(){
+  char str[30];
+  sprintf(str,"NumDataBytes %d\n\r",dbNumDataBytes);
+  UART_PRINT_STR(str);
+
+}
+
+
+
+uint8_t PicKermitRxFile()
 {
-  KermitRxStates state = RX_SEND_INIT_WAIT;
-  uint8_t returnVal=0, packetType, txSeq = 0, rxSeq, rxSeqOld;
+  static KermitRxStates state = RX_SEND_INIT_WAIT;
+  static uint8_t rxSeqOld = 0;
+  static uint8_t txSeq = 0;
+  static bool bufferRefresh = false;
+  static uint8_t returnVal = 0;
+  static uint8_t packetType = 0;
+  static uint8_t rxSeq = 0;
   
   // Modify this infinite loop to have a timeout limit based on the kermit
   // init parameters.
-  for(uint8_t byteCount=0; byteCount < 200; byteCount++)
+  while(1)
   {
     switch(state)
     {
@@ -64,7 +81,7 @@ void PicKermitRxFile()
           
           if(packetType == 'F'){
             state = RX_DATA_PACKET_WAIT;
-            txSeq++;
+            txSeq = (txSeq+1)%64;
             PicKermitTxPacket('Y',txSeq,0,0);
           }
           else if(packetType == 'S'){
@@ -83,27 +100,33 @@ void PicKermitRxFile()
         
       case RX_DATA_PACKET_WAIT:
 
-        // Abort if there's not enough room in the buffer for another packet
-        if( !bufferCheckOverride && (bufferCapacity < remoteInitData.maxl-3) ){
-          PicKermitTxPacket('E',txSeq,0,0);
-          state = RX_ABORT;
-          break;
+        
+        if(!bufferRefresh){
+          // Max data field is max length minus 3 (sequence num, type and checksum)
+          returnVal = PicKermitRxPacket(&packetType,&rxSeq,localInitData.maxl-3-32,fileWritePtr);
+          
+          if(returnVal && packetType == 'D' && rxSeq != rxSeqOld ){
+            remBufferCapacity -= returnVal-5;
+            fileWritePtr += returnVal-5;
+          }
         }
+        else
+          bufferRefresh = false;
         
-        
-        // Max data field is max length minus 3 (sequence num, type and checksum)
-        returnVal = PicKermitRxPacket(&packetType,&rxSeq,remoteInitData.maxl-3,fileWritePtr);
+        // Return if there's not enough room in the buffer for another packet
+        if( remBufferCapacity < (localInitData.maxl-3-32) ){         
+          bufferRefresh = true;
+          return PIC_KERMIT_BUFFER_FULL;
+        }
 
         if( returnVal ){
           if( packetType == 'D' && rxSeq != rxSeqOld){
-            fileWritePtr += returnVal-5;
-            bufferCapacity -= returnVal-5;
-            txSeq++;
+            txSeq = (txSeq+1)%64;;
             PicKermitTxPacket('Y',txSeq,0,0);
             rxSeqOld = rxSeq;
           }
           else if( packetType == 'Z'){
-            txSeq++;
+            txSeq = (txSeq+1)%64;;
             PicKermitTxPacket('Y',txSeq,0,0);
             state = RX_FILE_HEADER_WAIT;
             rxSeqOld = rxSeq;
@@ -114,7 +137,15 @@ void PicKermitRxFile()
        
       case RX_ABORT:
       case RX_SEND_COMPLETE:
-        return;
+        state = RX_SEND_INIT_WAIT;
+        rxSeqOld = 0;
+        txSeq = 0;
+        bufferRefresh = false;
+        packetType = 0;
+        rxSeq = 0;
+        returnVal = 0;
+        
+        return PIC_KERMIT_FILE_RX_DONE;
         break;
     }
       
@@ -196,9 +227,10 @@ uint8_t PicKermitRxPacket(uint8_t *packetType, uint8_t *rxSeq, uint8_t nDataByte
     rxByte = EUSART_Read();
     bytesLeft--;
 
-    if(bytesLeft && *packetType == 'D' && rxByte == 35){
+    if(bytesLeft && nDataBytes && *packetType == 'D' && rxByte == 35){
       ctrlByte = 1;   
-      nDataBytes--;
+      nDataBytes--;     
+      packetLength--;
     }
     else if(bytesLeft && nDataBytes && ctrlByte){
       *(dataPtr++) = rxByte ^ 64;

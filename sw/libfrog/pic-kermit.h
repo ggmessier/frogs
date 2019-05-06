@@ -39,8 +39,10 @@ typedef struct {
     uint8_t qctl; // Char used to quote control chars (usually #) (char offset 32)    
 } ReqInitData;
     
+#define PIC_KERMIT_FILE_RX_DONE 0
+#define PIC_KERMIT_BUFFER_FULL 1
     
-void PicKermitRxFile();
+uint8_t PicKermitRxFile();
 uint8_t PicKermitRxPacket(uint8_t *rxPacketType, uint8_t *rxSeq, uint8_t nDataBytes, uint8_t *dataPtr);
 void PicKermitTxPacket(uint8_t txPacketType, uint8_t txSeq, uint8_t nDataBytes, uint8_t *dataPtr);
 

@@ -44,34 +44,36 @@
 #include <stdio.h>
 #include <conio.h>
 #include "mcc_generated_files/mcc.h"
-#include <libfrog-serial.h>
+#include "uart-menu.h"
+#include "pic-kermit.h" 
+#include "spi-flash.h"
+#include "audio.h"
 
 
 /*
                          Main application
  */
 
+//#define MUSIC_FILE_SIZE 262144
+#define MUSIC_FILE_SIZE 1048576
 
-extern uint8_t bufferCheckOverride;
+
+
+#define DATA_BUFF_SIZE 100
 extern ReqInitData remoteInitData;
 extern uint8_t *fileWritePtr;
-extern uint16_t bufferCapacity;
-uint8_t dataBuffer[40];
+extern uint8_t remBufferCapacity;
+uint8_t dataBuffer[DATA_BUFF_SIZE];
 
-void PrintBufferContentsText(){
-  for(uint8_t i=0; i<40;i++)
-    EUSART_Write(dataBuffer[i]);
-  
-  EUSART_Write('\n');
-  EUSART_Write('\r');
-}
 
-void PrintBufferContentsBinary(){
-  for(uint8_t i=0; i<40;i++)
-    EUSART_Write(dataBuffer[i]+32);
-  
-  EUSART_Write('\n');
-  EUSART_Write('\r');
+
+
+
+
+void BlankFlashFs()
+{
+  //QuickFilesystemDelete();
+  SpiFlashDeleteFilesystem();
 }
 
 
@@ -97,17 +99,92 @@ void PrintKermitInitResults()
   
 }
 
+void TestDac()
+{
+  AudioPlayFlashFile(0,MUSIC_FILE_SIZE);  
+}
+
+void CreateFile(){
+  SpiFlashFileOpen("bs.bin",MUSIC_FILE_SIZE);
+  SpiFlashSaveFileTable();
+}
+
+void PrintFileTable(){
+  SpiPrintFileTable();
+}
+
+
+uint16_t dbgNumBytesWritten = 0;
+void PrintDebug()
+{
+  char str[30];
+  sprintf(str," Written: %d\n\r",dbgNumBytesWritten);
+  UART_PRINT_STR(str);
+  
+  for(uint8_t i=0; i< dbgNumBytesWritten; i++){
+    
+    sprintf(str," %d - 0x%x\n\r",i,dataBuffer[i]);
+    UART_PRINT_STR(str);
+    
+    
+  }
+}
+
+
+void KermitFileDownload(){
+  
+  //char str[30];
+  while( PicKermitRxFile() == PIC_KERMIT_BUFFER_FULL ){
+    
+    //sprintf(str," Bfull: %d\n\r",bufferCapacity-remBufferCapacity);
+    //UART_PRINT_STR(str);
+
+    dbgNumBytesWritten += DATA_BUFF_SIZE-remBufferCapacity;
+    
+    SpiFlashWrite(0,DATA_BUFF_SIZE-remBufferCapacity,dataBuffer);
+    remBufferCapacity = DATA_BUFF_SIZE;
+    fileWritePtr = dataBuffer;
+    
+    
+   // return;
+  }
+  
+  //sprintf(str," Done: %d\n\r",bufferCapacity-remBufferCapacity);
+  //UART_PRINT_STR(str);
+
+  SpiFlashWrite(0,DATA_BUFF_SIZE-remBufferCapacity,dataBuffer);
+  
+  SpiFlashSaveFileTable();
+
+}
+
+void ReadDownloadedFile(){
+  char str[30];
+  uint8_t val;
+  uint16_t addr=0;
+    
+  SpiFlashRewindRead(0);
+  
+  while( SpiFlashRead(0,1,&val) == 0  && addr < 200){
+    sprintf(str,"0x%x- 0x%x\n\r",addr++,val);
+    UART_PRINT_STR(str);
+  }
+}
+
+
 
 void main(void)
 {
     // initialize the device
     SYSTEM_Initialize();
+    
+    //TMR1_SetInterruptHandler(AudioTimerCallback);
 
     // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
     // Use the following macros to:
 
     // Enable the Global Interrupts
-    //INTERRUPT_GlobalInterruptEnable();
+   // INTERRUPT_GlobalInterruptEnable();
 
     // Enable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptEnable();
@@ -118,28 +195,42 @@ void main(void)
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
 
-    
-    //EUSART_Initialize();
+    DAC1_Initialize();
+    EUSART_Initialize();
+    SPI_Initialize();
+    SpiFlashInit();
+    TMR2_Initialize();
         
     
-    bufferCapacity = 40;
-    bufferCheckOverride = 1;
+    //AudioPlayFlashFile(0,MUSIC_FILE_SIZE);  
+
+    
+    
+    remBufferCapacity = DATA_BUFF_SIZE;
     fileWritePtr = dataBuffer;
-    for(uint8_t i=0; i<40; i++)
+    for(uint8_t i=0; i<remBufferCapacity; i++)
       dataBuffer[i] = 0;
     
-    uint8_t uartMenuSize = 4;
-    uint8_t help0[] = "Kermit rx.";
-    uint8_t help1[] = "Print kermit init results.";
-    uint8_t help2[] = "Print file buffer contents (text file).";
-    uint8_t help3[] = "Print file buffer contents (binary file).";
+    uint8_t uartMenuSize = 8;
+    uint8_t help0[] = "Print kermit init results.";
+    uint8_t help1[] = "Kermit file download.";
+    uint8_t help2[] = "Print downloaded file bytes.";
+    uint8_t help3[] = "Blank FLASH filesystem.";
+    uint8_t help4[] = "Test DAC.";
+    uint8_t help5[] = "Create file.";
+    uint8_t help6[] = "Print file table.";
+    uint8_t help7[] = "Debug.";
 
     
     UartCommand uartMenu[] = {
-        { 0, help0, &PicKermitRxFile },
-        { 1, help1, &PrintKermitInitResults },
-        { 2, help2, &PrintBufferContentsText },
-        { 3, help3, &PrintBufferContentsBinary }
+        { 0, help0, &PrintKermitInitResults },
+        { 1, help1, &KermitFileDownload },
+        { 2, help2, &ReadDownloadedFile },
+        { 3, help3, &BlankFlashFs },
+        { 4, help4, &TestDac },
+        { 5, help5, &CreateFile },
+        { 6, help6, &PrintFileTable },
+        { 7, help7, &PrintDebug }
     };
     
     

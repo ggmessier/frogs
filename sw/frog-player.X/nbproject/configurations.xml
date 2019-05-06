@@ -10,7 +10,15 @@
         <itemPath>mcc_generated_files/pin_manager.h</itemPath>
         <itemPath>mcc_generated_files/mcc.h</itemPath>
         <itemPath>mcc_generated_files/eusart.h</itemPath>
+        <itemPath>mcc_generated_files/spi.h</itemPath>
+        <itemPath>mcc_generated_files/dac1.h</itemPath>
+        <itemPath>mcc_generated_files/tmr2.h</itemPath>
+        <itemPath>mcc_generated_files/opa1.h</itemPath>
       </logicalFolder>
+      <itemPath>../libfrog/pic-kermit.h</itemPath>
+      <itemPath>../libfrog/uart-menu.h</itemPath>
+      <itemPath>../libfrog/spi-flash.h</itemPath>
+      <itemPath>audio.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -26,11 +34,15 @@
         <itemPath>mcc_generated_files/mcc.c</itemPath>
         <itemPath>mcc_generated_files/device_config.c</itemPath>
         <itemPath>mcc_generated_files/eusart.c</itemPath>
+        <itemPath>mcc_generated_files/spi.c</itemPath>
+        <itemPath>mcc_generated_files/dac1.c</itemPath>
+        <itemPath>mcc_generated_files/tmr2.c</itemPath>
+        <itemPath>mcc_generated_files/opa1.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>../libfrog/pic-kermit.c</itemPath>
-      <itemPath>../libfrog/pic-kermit.h</itemPath>
-      <itemPath>../libfrog/uart-menu.h</itemPath>
+      <itemPath>../libfrog/spi-flash.c</itemPath>
+      <itemPath>audio.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -85,7 +97,7 @@
         <property key="define-macros" value=""/>
         <property key="disable-optimizations" value="false"/>
         <property key="extra-include-directories"
-                  value="/home/gmessier/Dropbox/lib/prj/frogs/sw/frog-player.X;/home/gmessier/Dropbox/lib/prj/frogs/sw/libfrog-serial.X"/>
+                  value="/home/gmessier/Dropbox/lib/prj/frogs/sw/frog-player.X;../libfrog"/>
         <property key="favor-optimization-for" value="-speed,+space"/>
         <property key="identifier-length" value="255"/>
         <property key="local-generation" value="false"/>
@@ -158,6 +170,7 @@
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

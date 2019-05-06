@@ -446,7 +446,7 @@ Type="Control Panel"
 Number=0
 
 [Desktop]
-Screen="1280 800"
+Screen="2560 1440"
 Window="Win_1"
 Window="Win_2"
 Window="Win_3"
