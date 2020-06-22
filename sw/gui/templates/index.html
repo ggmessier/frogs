@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+
+ *** Simple Example Gui ***
+ - This gui is meant to demo all elements we'd want in our gui.
+ - View elements:
+  > A canvas object capable of refresh that includes graphics and text.
+ - Control elements:
+  > An event to capture mouse clicks.
+  > A text box that triggers an event when enter is hit.
+  > A button that triggers an event when pressed.
+
+-->
+
+
+<html>
+  <head>
+    <link rel="shortcut icon" href="#" />
+  </head>
+  <body>
+    <table style="width:100%">
+      <tr>    
+	<td><canvas id="canvasViewCtrl" width="500" height="500"></canvas></td>
+      </tr>
+      <tr>
+	<td>
+	  <input type="text" id="textInput">
+	</td>
+	<td>
+	  <input type="submit" id="buttonInput" value="Test Button">
+	</td>
+      </tr>
+    </table>
+
+    <script src = "/static/code/socket.io.js"></script>
+
+    <!-- This has to come last since it accesses the html elements above. -->
+    <script src = "/static/code/gui-data.js"></script>
+    <script src = "/static/code/gui-engine.js"></script>
+
+  </body>
+</html>

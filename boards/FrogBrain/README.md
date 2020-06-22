@@ -20,7 +20,8 @@ Digikey part numbers.
 ## Rev 1.1
 * Fixed pins 3 and 6 on regulator not connected to ground.
 
-
+## Rev 1.2
+* Reduced board size by making the design more compact.
 
 
 

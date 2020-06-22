@@ -1,5 +1,6 @@
 *.?#?
 *~
+*.FCStd1
 /sw/serial/frog-serial.X/nbproject/private/
 /sw/libfrog-serial.X/nbproject/private/
 /sw/frog-player.X/nbproject/private/
