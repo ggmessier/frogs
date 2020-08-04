@@ -1,0 +1,67 @@
+/*  
+* Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Purpose License Version 2 as
+* published by the Free Software Foundation
+*
+* Original from: github.com/jadonk/validation-scripts/blob/master/test-capemgr/ 
+*
+* Modified by Derek Molloy for the example on www.derekmolloy.ie
+* that maps GPIO pins for the example
+*/
+
+/dts-v1/;  // Indicates version of DTS we're using.
+/plugin/;  // This is a plugin.
+
+/{
+       compatible = "ti,beaglebone", "ti,beaglebone-black";  // Platforms we work with.
+       part-number = "GPIO-Example";  // Same as the filename.
+       version = "00A0";              // Set for Beaglebone Black.
+
+       // All device tree overlays consist of multiple fragments.
+       // - Each overlay targets a node or subnode.
+       fragment@0 {
+             // Target indicates the node that will be modified.  am3xx is the processor number.
+             target = <&am33xx_pinmux>;  
+
+	     // The body of __overlay__ is what gets written to the target node.
+             __overlay__ {
+	          // This line creates a subnode with format test_label: test_subnode
+		  // - Both names appear arbitrary but the label does get referenced later in the script.
+
+		  /*
+		   * Set P9_29 to be an output pin with a pulldown resistor.
+		   * - The first number is the address offset of the pin from Fig. 6-6/6-7 in Molloy.
+		   * - The second number specifies the device configuration
+		   *   0000111
+		   *   |||||||--> Selects mux mode (column in pinout table)
+		   *   ||||--> 0=enable pullup/pulldown resistor/1=disable resistors
+		   *   |||--> 0=pulldown resistor/1=pullup resistor
+		   *   ||--> 0=output pin/1=input pin
+		   *   |--> 0=fast slew control/1=slow  Set to fast except for some long bus applications (I2C)
+		  */
+                  gpio_pin_label: GPIO_Pin_Subnode { 
+		  
+			pinctrl-single,pins = <
+				0x194 0x07  // P9_29 configuration as output pin.
+			>;
+		  };
+             };
+       };
+
+       // This second fragment configures the device.  This seems to be the pin IO controller but
+       // this can also be the place where we set things like SPI data rate. 
+       fragment@1 {
+		target = <&ocp>;  // Selects on-chip peripherals device.
+		
+		__overlay__ {
+			gpio_helper {
+				compatible = "gpio-of-helper";  // Appears to all be reserved fields.
+				status = "okay";
+				pinctrl-names = "default";
+				pinctrl-0 = <&gpio_pin_label>;  // Where we reference our overlay label defined above.
+			};
+		};
+	};
+};
