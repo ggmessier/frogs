@@ -1,16 +1,9 @@
 *.?#?
+*.swp
 *~
 *.FCStd1
-/sw/serial/frog-serial.X/nbproject/private/
-/sw/libfrog-serial.X/nbproject/private/
-/sw/frog-player.X/nbproject/private/
-/sw/frog-player.X/build/default/
-/sw/libfrog-serial.X/dist/default/
-/sw/frog-player.X/dist/default/
 /src/frog-player.X/build/default/
 /src/frog-player.X/nbproject/private/
-/src/pic/InterfaceDemo.X/nbproject/private/
-/src/pic/InterfaceDemo.X/build/default/
 /src/pic/InterfaceDemo.X/dist/default/
 /src/pic/FlashLed.X/nbproject/private/
 /src/pic/FlashLed.X/build/default/
@@ -22,3 +15,4 @@
 /src/avr/FlashLed.X/dist/
 /src/avr/HelloWorld.X/dist/
 /src/avr/HelloWorld.X/build/
+.DS_Store
