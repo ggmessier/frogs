@@ -8,6 +8,8 @@
 #ifndef UART_AVR_LIB_H
 #define	UART_AVR_LIB_H
 
+#include <avr/io.h>
+
 #define USART_WRITE_BYTE(data){ \
     USART0.STATUS |= 0b01000000; \
     USART0.TXDATAL = data; \
@@ -27,8 +29,19 @@
     } \
 }
 
+#define USART_READ_STR(v,sz){ \
+  uint8_t i=0; \
+  USART_READ_BYTE(v[i]); \
+  while( v[i] != '\r' && i < (sz)){ \
+    i++; \
+    USART_READ_BYTE(v[i]); \
+  } \
+  v[i] = 0; \
+}
+
+
 #define USART_MENU_PROMPT { \
-    USART_PRINT_STR("Press '?' for menu.\n\r"); \
+    USART_PRINT_STR("\n\rPress '?' for menu.\n\r"); \
     USART_PRINT_STR("{*} "); \
 }
 

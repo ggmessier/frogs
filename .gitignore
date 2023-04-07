@@ -9,3 +9,9 @@ src/*/*.X/dist/default/
 /src/avr/lib-Avr128DbX.X/dist/
 /src/avr/UartMenu.X/dist/
 /src/avr/UartMenu.X/build/
+/src/avr/SpiExtFlash.X/build/
+/src/avr/SpiExtFlash.X/dist/
+/src/avr/FanControl.X/build/
+/src/avr/FanControl.X/dist/
+boards/*/*/*/*.zip
+src/avr/*/.generated_files

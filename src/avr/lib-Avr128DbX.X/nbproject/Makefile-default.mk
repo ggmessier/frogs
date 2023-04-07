@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=
+SOURCEFILES_QUOTED_IF_SPACED=spi-flash.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=
-POSSIBLE_DEPFILES=
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/spi-flash.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/spi-flash.o.d
 
 # Object Files
-OBJECTFILES=
+OBJECTFILES=${OBJECTDIR}/spi-flash.o
 
 # Source Files
-SOURCEFILES=
+SOURCEFILES=spi-flash.c
 
 
 
@@ -88,7 +88,19 @@ MP_PROCESSOR_OPTION=AVR128DB28
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/spi-flash.o: spi-flash.c  .generated_files/flags/default/8bc817202d1d12c22617c8eed9121dfad9dc16d .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/spi-flash.o.d 
+	@${RM} ${OBJECTDIR}/spi-flash.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mno-const-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/spi-flash.o.d" -MT "${OBJECTDIR}/spi-flash.o.d" -MT ${OBJECTDIR}/spi-flash.o -o ${OBJECTDIR}/spi-flash.o spi-flash.c 
+	
 else
+${OBJECTDIR}/spi-flash.o: spi-flash.c  .generated_files/flags/default/7ecd4816d83e656d1280add618c05393f4246742 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/spi-flash.o.d 
+	@${RM} ${OBJECTDIR}/spi-flash.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mno-const-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/spi-flash.o.d" -MT "${OBJECTDIR}/spi-flash.o.d" -MT ${OBJECTDIR}/spi-flash.o -o ${OBJECTDIR}/spi-flash.o spi-flash.c 
+	
 endif
 
 # ------------------------------------------------------------------------------------

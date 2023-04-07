@@ -8,6 +8,7 @@
 #define LIB_AVR_H
 
 #include "uart.h"
-
+#include "spi.h"
+#include "spi-flash.h"
 
 #endif
