@@ -15,3 +15,8 @@ src/*/*.X/dist/default/
 /src/avr/FanControl.X/dist/
 boards/*/*/*/*.zip
 src/avr/*/.generated_files
+/src/avr/SSD1305OledTest.X/dist/
+/src/avr/SSD1305OledTest.X/build/
+boards/*/*-backups/
+*.raw
+*.net

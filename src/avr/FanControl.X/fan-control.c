@@ -2,7 +2,8 @@
  * File:   fan-control.c
  * Author: gmessier
  *
- * Created on March 4, 2023, 2:36 PM
+ * Version 1.0:
+ * - Initial fully functional controller software.
  */
 
 #include <xc.h>
@@ -52,10 +53,10 @@ void SetSpeed(uint8_t nTimer, uint8_t speed)
 
 // Speed values correspond to TCB duty cycle settings that are
 // RC filtered to produce a variable voltage level.
-uint8_t defaultSpeedHi[NUM_FANS] = { 87, 87, 87 };
-uint8_t defaultSpeedLo[NUM_FANS] = { 84, 84, 85 };
+uint8_t defaultSpeedHi[NUM_FANS] = { 91, 91, 91 };
+uint8_t defaultSpeedLo[NUM_FANS] = { 87, 87, 87 };
 
-#define DEFAULT_SPEED_START 99 // Speed to get fans going after reset.
+#define DEFAULT_SPEED_START 95 // Speed to get fans going after reset.
 #define DEFAULT_SPEED_OFF 1 // Slow enough to turn the fans off.
 #define DEFAULT_SPEED_STEP 1 // Fan speed increment step size.
 
@@ -70,7 +71,7 @@ uint8_t defaultSpeedLo[NUM_FANS] = { 84, 84, 85 };
 
 // The fraction of the fan cycle to stay at full power in order
 // to spin the fan up is 1/DEFAULT_START_DENOM. Use multiples of 2.
-#define DEFAULT_START_DENOM 16
+#define DEFAULT_START_DENOM 8
 
 // A single fan update tick is FAN_TICK/F_TCA seconds.
 #define FAN_TICK 16 // One fan tick every 0.5sec.
@@ -394,6 +395,14 @@ int main(void) {
   };
 
   SetFansToDefault();
+  
+  for(uint8_t n=0; n < NUM_FANS; n++){
+    SetSpeed(n,94);
+  }
+  
+  while(1){ ; }
+
+  
   
   
   while (1) {
