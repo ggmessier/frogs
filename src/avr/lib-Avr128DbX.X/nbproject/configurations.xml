@@ -8,6 +8,7 @@
       <itemPath>lib-avr.h</itemPath>
       <itemPath>spi-flash.h</itemPath>
       <itemPath>spi.h</itemPath>
+      <itemPath>lcd-display.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

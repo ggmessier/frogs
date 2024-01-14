@@ -10,5 +10,6 @@
 #include "uart.h"
 #include "spi.h"
 #include "spi-flash.h"
+#include "lcd-display.h"
 
 #endif

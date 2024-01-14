@@ -20,3 +20,5 @@ src/avr/*/.generated_files
 boards/*/*-backups/
 *.raw
 *.net
+/src/avr/CharLcd.X/build/
+/src/avr/CharLcd.X/dist/

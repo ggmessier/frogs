@@ -1,4 +1,4 @@
-20590400463608473
+20612382692190390
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -86456,3 +86456,94 @@ EAO_SPDT_90_10290
 0
 3
 3
+lib
+Moisture_Capacitor
+
+
+0
+2
+2
+lib
+Mouse_Bite_Double_Sided
+
+
+0
+0
+0
+lib
+Mouse_Bite_Single_Sided
+
+
+0
+0
+0
+lib
+eFrog-pcb-bottom
+
+
+0
+0
+0
+lib
+eFrog-pcb-top
+
+
+0
+0
+0
+lib-tile
+BarrelJack_Kycon_KLDX-0202-xC_Horizontal
+DC Barrel Jack 2mm or 2.5mm center pin, https://www.kycon.com/Pub_Eng_Draw/KLDX-0202-AC%20&%20BC.pdf
+power jack 2mm 2.5mm KLDX-0202-BC KLDX-0202-AC
+0
+3
+3
+lib-tile
+C_Disc_D7.5mm_W2.5mm_P5.00mm
+C, Disc series, Radial, pin pitch=5.00mm, , diameter*width=7.5*2.5mm^2, Capacitor, http://www.vishay.com/docs/28535/vy2series.pdf
+C Disc series Radial pin pitch 5.00mm  diameter 7.5mm width 2.5mm Capacitor
+0
+2
+2
+lib-tile
+DIP-28_W7.62mm
+28-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils)
+THT DIP DIL PDIP 2.54mm 7.62mm 300mil
+0
+28
+28
+lib-tile
+PinHeader_1x03_P2.54mm_Vertical
+Through hole straight pin header, 1x03, 2.54mm pitch, single row
+Through hole pin header THT 1x03 2.54mm single row
+0
+3
+3
+lib-tile
+PinHeader_1x06_P2.54mm_Vertical
+Through hole straight pin header, 1x06, 2.54mm pitch, single row
+Through hole pin header THT 1x06 2.54mm single row
+0
+6
+6
+lib-tile
+PinHeader_1x08_P2.54mm_Vertical
+Through hole straight pin header, 1x08, 2.54mm pitch, single row
+Through hole pin header THT 1x08 2.54mm single row
+0
+8
+8
+lib-tile
+SW_PUSH_6mm
+https://www.omron.com/ecb/products/pdf/en-b3f.pdf
+tact sw push 6mm
+0
+4
+2
+lib-tile
+eFrog-pcb
+
+
+0
+0
+0
