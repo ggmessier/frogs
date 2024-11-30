@@ -1,8 +1,7 @@
 /* 
  * File:   lcd-display.h
  * Author: gmessier
- * Macros character based LCD displays.
- * Created on January 6, 2024
+ * Routines for based LCD displays.
  */
 
 #ifndef LCD_DISPLAY_H

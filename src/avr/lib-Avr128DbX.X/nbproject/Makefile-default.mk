@@ -88,18 +88,18 @@ MP_PROCESSOR_OPTION=AVR128DB28
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/spi-flash.o: spi-flash.c  .generated_files/flags/default/8bc817202d1d12c22617c8eed9121dfad9dc16d .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/spi-flash.o: spi-flash.c  .generated_files/flags/default/eba72f5fc9b06494869451126b870adc0df7ad78 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/spi-flash.o.d 
 	@${RM} ${OBJECTDIR}/spi-flash.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mno-const-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/spi-flash.o.d" -MT "${OBJECTDIR}/spi-flash.o.d" -MT ${OBJECTDIR}/spi-flash.o -o ${OBJECTDIR}/spi-flash.o spi-flash.c 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1 -g -DDEBUG  -gdwarf-2  -x c -D__$(MP_PROCESSOR_OPTION)__    -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mno-const-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/spi-flash.o.d" -MT "${OBJECTDIR}/spi-flash.o.d" -MT ${OBJECTDIR}/spi-flash.o -o ${OBJECTDIR}/spi-flash.o spi-flash.c 
 	
 else
-${OBJECTDIR}/spi-flash.o: spi-flash.c  .generated_files/flags/default/7ecd4816d83e656d1280add618c05393f4246742 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+${OBJECTDIR}/spi-flash.o: spi-flash.c  .generated_files/flags/default/b61edcd06c92065e7d33074ec1715fe4cc85be9 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/spi-flash.o.d 
 	@${RM} ${OBJECTDIR}/spi-flash.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__   -mdfp="${DFP_DIR}/xc8"  -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mno-const-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/spi-flash.o.d" -MT "${OBJECTDIR}/spi-flash.o.d" -MT ${OBJECTDIR}/spi-flash.o -o ${OBJECTDIR}/spi-flash.o spi-flash.c 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -x c -D__$(MP_PROCESSOR_OPTION)__    -Wl,--gc-sections -O1 -ffunction-sections -fdata-sections -fshort-enums -fno-common -funsigned-char -funsigned-bitfields -Wall -DXPRJ_default=$(CND_CONF)  $(COMPARISON_BUILD)  -gdwarf-3 -mconst-data-in-progmem -mno-const-data-in-config-mapped-progmem     -MD -MP -MF "${OBJECTDIR}/spi-flash.o.d" -MT "${OBJECTDIR}/spi-flash.o.d" -MT ${OBJECTDIR}/spi-flash.o -o ${OBJECTDIR}/spi-flash.o spi-flash.c 
 	
 endif
 

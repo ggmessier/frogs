@@ -9,6 +9,12 @@
       <itemPath>spi-flash.h</itemPath>
       <itemPath>spi.h</itemPath>
       <itemPath>lcd-display.h</itemPath>
+      <itemPath>rtd-sensor.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -18,11 +24,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>spi-flash.c</itemPath>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -35,7 +36,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC8</languageToolchain>
-        <languageToolchainVersion>2.40</languageToolchainVersion>
+        <languageToolchainVersion>2.46</languageToolchainVersion>
         <platform>4</platform>
       </toolsSet>
       <packs>

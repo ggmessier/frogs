@@ -22,3 +22,5 @@ boards/*/*-backups/
 *.net
 /src/avr/CharLcd.X/build/
 /src/avr/CharLcd.X/dist/
+/src/avr/RtdTempSensor.X/build/
+/src/avr/RtdTempSensor.X/dist/

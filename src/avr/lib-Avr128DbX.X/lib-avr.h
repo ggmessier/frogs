@@ -11,5 +11,6 @@
 #include "spi.h"
 #include "spi-flash.h"
 #include "lcd-display.h"
+#include "rtd-sensor.h"
 
 #endif
